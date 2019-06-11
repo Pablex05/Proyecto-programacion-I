@@ -28,12 +28,15 @@
 			Menu</a>
 			<div class="dropdown-menu" >
 			  <a class="dropdown-item" href="{{url_for('crear_evento')}}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Página A </font></font></a>
-			  <a class="dropdown-item" href="{{url_for('evento')}}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Página B</font></font></a>
+			  <a class="dropdown-item"}><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Página B</font></font></a>
 			  <div class="dropdown-divider"></div>
 			  <a class="dropdown-item" href="{{url_for('usuario_nuevo')}}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Página C</font></font></a>
 			</div>
 		</li>
 	 </ul>
+<!----------------------------------------------------------------------------------------->
+{% if usuario=="iniciado" %}
+
 
         <li class="nav-item">
             <form class="form-inline my-2 my-lg-0">
@@ -54,13 +57,46 @@
         </div>
         </li>
          <img src="{{url_for('static', filename='imagenes/relleno.png')}}" ><img src="{{url_for('static', filename='imagenes/relleno.png')}}" >
+{% endif%}
 
+
+
+
+
+{% if usuario=="no_iniciado" %}
+  <div class="navbar-collapse collapse w-100 order-1 dual-collapse2">
+       <ul class="navbar-nav ml-auto">
+
+         <li class="nav-item">
+             <li class="nav-item" style="color:white">
+               <label for="email">Email: </label>
+            </li>
+        <div class="form-group">
+               <input type="email" name="campoemail" id="email" class="form-control">
+        </div>
+             <li class="nav-item" style="color:white">
+                <label for="contraseña">Contraseña</label>
+            </li>
+        <div class="form-group">
+						<input type="password" name="campopass" id="contraseña" class="form-control">
+					 </div>
+         </li>
+            <li class="nav-item">
+               <a class="btn btn-info">Iniciar sesion</a>
+                <a class="btn btn-info">Registrarse</a>
+            </li>
+
+       </ul>
+   </div>
+           {% endif %}
    </div>
 </nav>
+
 {% endblock %}
 
 
 {%block contenido%}
+
 {% endblock %}
 
 

@@ -12,19 +12,22 @@ app = Flask(__name__) #Iniciar Flask
 @app.route('/')
 def index():
     listaeventos = listar_eventos()
-    return render_template('eventos.html', listaeventos = listaeventos)
+    return render_template('eventos.html', listaeventos = listaeventos, usuario="no_iniciado")
 
 @app.route('/nuevo_usuario')
 def usuario_nuevo():
 
     return render_template('registro_de_nuevo_usuario.html') #Mostrar template y pasar variables
 
-@app.route('/evento_publicado')
-def evento():
+@app.route('/evento_publicado/<id>')
+def evento(id):
 
+    listaeventos = listar_eventos()
+
+    evento = list(filter(lambda evento: evento['id'] == id, listaeventos))[0]
     listacomentarios = evento_comentarios()
     print(listacomentarios)
-    return render_template('evento_con_comentario.html', listacomentarios=listacomentarios) #Mostrar template y pasar variables
+    return render_template('evento_con_comentario.html', listacomentarios=listacomentarios, evento=evento) #Mostrar template y pasar variables
 
 @app.route('/nuevoevento')
 def crear_evento():
