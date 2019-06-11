@@ -35,3 +35,24 @@
 	<div class="col-md-2"></div>
 
 {% endmacro %}
+
+
+{% macro panel_evento (evento) %}
+
+
+
+
+	<tr>
+        <td style="text-align:center">{{evento["id"]}}</td>
+        <td style="width:50%">{{evento["titulo"]}}</td>
+        <td style="width:40%">{{evento["fecha"]}}</td>
+        <td style="width:5%"><a href="{{url_for('evento',id=evento['id'])}}" class="btn btn-primary">Ir a …</a></td>
+        <td style="width:5%"><a href="{{url_for('evento',id=evento['id'])}}" class="btn btn-secondary">Modificar</a></td>
+        <td style="width:5%"><a href="{{url_for('evento',id=evento['id'])}}" class="btn btn-danger">Eliminar</a></td>
+    </tr>
+<tr>
+    <td colspan="6"><br></td>
+</tr>
+
+
+    {% endmacro %}

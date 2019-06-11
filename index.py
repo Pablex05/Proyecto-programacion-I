@@ -23,21 +23,21 @@ def usuario_nuevo():
 def evento(id):
 
     listaeventos = listar_eventos()
-
     evento = list(filter(lambda evento: evento['id'] == id, listaeventos))[0]
     listacomentarios = evento_comentarios()
     print(listacomentarios)
-    return render_template('evento_con_comentario.html', listacomentarios=listacomentarios, evento=evento, nombreusuario="pablo",usuario="no_iniciado") #Mostrar template y pasar variables
+    return render_template('evento_con_comentario.html', listacomentarios=listacomentarios, evento=evento, nombreusuario="pablo",usuario="iniciado") #Mostrar template y pasar variables
 
 @app.route('/nuevoevento')
 def crear_evento():
 
     return render_template('crear_nuevo_evento.html' ) #Mostrar template y pasar variables
 
-@app.route('/modificarevento')
-def modificar_evento():
+@app.route('/panel_configuracion')
+def panel_eventos():
 
-    return render_template('modificar_evento_creado')
+    listaeventos = listar_eventos()
+    return render_template('panel_eventos_creados.html', listaeventos=listaeventos, nombreusuario="pablo",usuario="iniciado")
 
 
 

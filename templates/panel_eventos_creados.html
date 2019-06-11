@@ -1,0 +1,39 @@
+{% extends "encabezado_y_pie_logeado.html" %}
+{%block contenido %}
+{% from 'macros.html' import panel_evento %}
+
+		<div class="container"><br><br>
+			<div class="row">
+				<div class="col-md-14">
+					<div class="jumbotron" >
+					<h1>LISTA DE EVENTOS</h1>
+			<form>
+<div class="jumbotron" style=" margin:auto">
+
+
+<table style="width:100%">
+		<tr>
+			<td style="float:"><h4><u>USUARIO</u></h4></td>
+			<td style="width:30%;text-align:center"><h4><u>TITULO</u></h4></td>
+			<td style="width:40%"><h4><u>FECHA</u></td>
+        <td style="width:5%"></td>
+        <td style="width:5%"></td>
+        <td style="width:5%"></td>
+
+    </tr>
+
+{% for evento in listaeventos %}
+
+
+{{panel_evento (evento)}}
+
+
+{% endfor %}
+	</table>
+</div>
+
+			</form>
+					</div></div></div></div>
+
+
+{%endblock%}
