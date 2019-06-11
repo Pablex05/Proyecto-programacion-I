@@ -12,7 +12,7 @@ app = Flask(__name__) #Iniciar Flask
 @app.route('/')
 def index():
     listaeventos = listar_eventos()
-    return render_template('eventos.html', listaeventos = listaeventos, usuario="no_iniciado")
+    return render_template('eventos.html', listaeventos = listaeventos, usuario="iniciado")
 
 @app.route('/nuevo_usuario')
 def usuario_nuevo():
