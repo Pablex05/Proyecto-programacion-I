@@ -16,12 +16,15 @@
 </head>
 <body background="/static/imagenes/fondo_de_pagina.jpg">
 <!-------------------------------------------------------------------------------->
+
+
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark navbar-fixed-top">
       <ul class="navbar-nav">
 		  <li class="nav-item active">
 			<a class="nav-link" href="{{url_for('index')}}"><img src="{{url_for('static', filename='imagenes/Home_Paine.png')}}" > <span class="sr-only">(current)</span></a>
 		  </li>
       </ul>
+        {% if usuario=="iniciado" %}
       <ul class="navbar-nav mr-auto">
 		<li class="nav-item dropdown">
 			<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -35,7 +38,6 @@
 		</li>
 	 </ul>
 <!----------------------------------------------------------------------------------------->
-{% if usuario=="iniciado" %}
 
 
         <li class="nav-item">
@@ -64,6 +66,24 @@
 
 
 {% if usuario=="no_iniciado" %}
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+          Menu
+        </font></font></a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Página A </font></font></a>
+          <a class="dropdown-item" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Página B</font></font></a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Página C</font></font></a>
+        </div>
+      </li>
+    </ul>
+
+  </div>
+
   <div class="navbar-collapse collapse w-100 order-1 dual-collapse2">
        <ul class="navbar-nav ml-auto">
 
