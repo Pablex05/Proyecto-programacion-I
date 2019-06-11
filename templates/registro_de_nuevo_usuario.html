@@ -1,0 +1,50 @@
+
+{% extends "encabezado_y_pie_logeado.html" %}
+{%block contenido %}
+
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="jumbotron">
+					<h1>Registro de nuevo Usuario</h1>
+					<div class="form-group">
+						<label for="texto">Nombre</label>
+						<input type="text" name="campotexto" id="texto" class="form-control">
+					 </div>
+					<div class="form-group">
+						<label for="texto">Apellido</label>
+						<input type="text" name="campotexto" id="texto" class="form-control">
+					 </div>
+					  <div class="form-group">
+						<label for="contraseña">Contraseña</label>
+						<input type="password" name="campopass" id="contraseña" class="form-control ">
+					 </div>
+					<div class="form-group">
+						<label for="contraseña">Confirmar Contraseña</label>
+						<input type="password" name="campopass" id="contraseña" class="form-control ">
+					 </div>
+						<div class="form-group">
+						<label for="email">Email</label>
+						<input type="email" name="campoemail" id="email" class="form-control">
+					 </div>
+					<div class="form-check-inline">
+					  <input class="form-check-input" type="checkbox" value="1" id="Aceptar terminos y Condiciones" name="check1">
+					  <label class="form-check-label" for="Aceptar terminos y Condiciones">
+						Aceptar terminos y Condiciones
+					  </label>
+					</div>
+					<br><br>
+					<button type="submit" class="btn btn-primary">
+						Registrarse
+					</button><br><br>
+					<button type="submit" class="btn btn-danger">
+						Cancelar
+					</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+{%endblock%}

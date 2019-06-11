@@ -1,0 +1,118 @@
+{%block cabezera%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+		<script src="bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="/static/css/estilo.css">
+</head>
+<body background="/static/imagenes/fondo_de_pagina.jpg">
+<!-------------------------------------------------------------------------------->
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark navbar-fixed-top">
+      <ul class="navbar-nav">
+		  <li class="nav-item active">
+			<a class="nav-link" href="{{url_for('index')}}"><img src="{{url_for('static', filename='imagenes/Home_Paine.png')}}" > <span class="sr-only">(current)</span></a>
+		  </li>
+      </ul>
+      <ul class="navbar-nav mr-auto">
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			Menu</a>
+			<div class="dropdown-menu" >
+			  <a class="dropdown-item" href="{{url_for('crear_evento')}}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Página A </font></font></a>
+			  <a class="dropdown-item" href="{{url_for('evento')}}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Página B</font></font></a>
+			  <div class="dropdown-divider"></div>
+			  <a class="dropdown-item" href="{{url_for('usuario_nuevo')}}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Página C</font></font></a>
+			</div>
+		</li>
+	 </ul>
+
+        <li class="nav-item">
+            <form class="form-inline my-2 my-lg-0">
+            <input style="margin-right:-500px" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Buscar</button>
+        </form>
+        </li></div>
+        </li>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+          Usuario
+        </font></font></a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Configuracion</font></font></a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Salir Sesion </font><img src="/static/imagenes/cerrar_sesion.png"></font></a>
+
+        </div>
+        </li>
+         <img src="{{url_for('static', filename='imagenes/relleno.png')}}" ><img src="{{url_for('static', filename='imagenes/relleno.png')}}" >
+
+   </div>
+</nav>
+{% endblock %}
+
+
+{%block contenido%}
+{% endblock %}
+
+
+
+
+{%block pie%}
+<br><br>
+<footer>
+     <div class="container-fluid bg-primary py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="row py-0">
+                        <div class="col-sm-1 hidden-md-down">
+                            <a class="bg-circle bg-info" href="#">
+                            <i class="fa fa-2x fa-fw fa-address-card" aria-hidden="true "></i>
+                            </a>
+                        </div>
+                    <div class="col-sm-11 text-white">
+                        <div><h4>  Contact</h4>
+                        <p> <span class="header-font"><p>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+                    <div class="col-md-5">
+                        <div class="d-inline-block">
+                            <div class="bg-circle-outline d-inline-block" style="background-color:#3b5998">
+                                <a href="https://www.facebook.com/"><i class="fa fa-2x fa-fw fa-facebook text-white"></i>
+		                        </a>
+                            </div>
+                            <div class="bg-circle-outline d-inline-block" style="background-color:#4099FF">
+                                <a href="https://twitter.com/">
+                                <i class="fa fa-2x fa-fw fa-twitter text-white"></i></a>
+                            </div>
+                         <div class="bg-circle-outline d-inline-block" style="background-color:#0077B5">
+                            <a href="https://www.linkedin.com/company/">
+                            <i class="fa fa-2x fa-fw fa-linkedin text-white"></i></a>
+                    </div>
+                        <div class="bg-circle-outline d-inline-block" style="background-color:#d34836">
+                            <a href="https://www.google.com/">
+                            <i class="fa fa-2x fa-fw fa-google text-white"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+{% endblock %}
+
+</body>
+</html>

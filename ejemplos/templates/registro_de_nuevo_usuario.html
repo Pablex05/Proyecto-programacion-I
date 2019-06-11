@@ -1,0 +1,17 @@
+
+{% extends "encabezado_pie.html" %}
+{% block contenido %}
+<body>
+<ul>
+	{{titulo}}
+	{{texto}}
+</ul>
+<ul>
+	{% for valor in lista %}
+	<li>
+		{{valor}}
+	</li>
+	{% endfor %}
+</ul>
+{% endblock %}
+

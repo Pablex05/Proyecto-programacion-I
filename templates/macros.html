@@ -1,0 +1,37 @@
+{% macro mostrar_eventos (evento) %}
+
+
+<div class="conteiner-fluid"><br><br><img src="{{url_for('static', filename='imagenes/relleno.png')}}" >
+<div class="card" style="width: 30rem;float:center;">
+<img class="card-img-top" src="/static/imagenes/imagen.jpg">
+<h4 class="card-title">{{evento["titulo"]}}</h4>
+    <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">
+    <p><h5>Fecha:{{evento["fecha"]}}</h5></p>
+    <p><h5>Hora:{{evento["hora"]}}</h5></p>
+    <p><h5>Descripcion:{{evento["descripcion"]}}</h5></p>
+</p>
+      <a href="{{url_for('evento')}}" class="btn btn-primary">Ir a …</a>
+  </div>
+</div><br>
+    </div>
+<br>
+<img src="{{url_for('static', filename='imagenes/relleno.png')}}" >
+
+{% endmacro %}
+
+
+
+{% macro evento_comentarios (comentario) %}
+	<div class="col-md-2"></div>
+<div class="col-md-8">
+
+<div class="jumbotron" style=" margin:5px">
+  <img style="float:center; margin:row; width: 40px; height: 40px" src="/static/imagenes/usuario_logo.png"><h5>{{comentario["id"]}}</h5>
+	  <p><h5>{{comentario["texto"]}}</h5></p>
+</div>
+</div>
+	<div class="col-md-2"></div>
+
+{% endmacro %}
