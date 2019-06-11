@@ -8,11 +8,11 @@
 <div class="jumbotron">
         <div align="center" ><img  style="width:80% ; height: 80%" src="/static/imagenes/imagen.jpg" style="margin:auto"></div>
 
-	<h1 align="center"><b><u> TITULO</u> </b></h1>
-	<h3><u>Nombre:{{evento["fecha"]}}</u></h3>
-	<h3><u>Fecha:{{evento["fecha"]}}</u></h3>
-	<h3><u>Horario:{{evento["fecha"]}}</u></h3>
-	<h3><u>Descripcion:{{evento["fecha"]}}</u></h3>
+	<h1 align="center"><b><u>{{evento["titulo"]}}</u> </b></h1>
+	<h3><u>Nombre:</u> {{evento["titulo"]}}</h3>
+	<h3><u>Fecha:</u> {{evento["fecha"]}}</h3>
+	<h3><u>Horario:</u> {{evento["hora"]}}</h3>
+	<h3><u>Descripcion:</u> {{evento["descripcion"]}}</h3>
 
 </div>
 </div>
@@ -28,7 +28,7 @@
 						<label for="area" style="color:black">
 						 <div class="jumbotron">
 
-						  <img style="float:left; margin:row; width: 40px; height: 40px" src="/static/imagenes/usuario_logo.png"><h5>Usuario</h5>
+						  <img style="float:left; margin:row; width: 40px; height: 40px" src="/static/imagenes/usuario_logo.png"><h5>{{nombreusuario}}</h5>
 		</form>
 						  <textarea name="areadetexto" rows="1" cols="60"  class="form-control" id="area"></textarea>
 							  <input type="submit">

@@ -27,7 +27,7 @@ def evento(id):
     evento = list(filter(lambda evento: evento['id'] == id, listaeventos))[0]
     listacomentarios = evento_comentarios()
     print(listacomentarios)
-    return render_template('evento_con_comentario.html', listacomentarios=listacomentarios, evento=evento) #Mostrar template y pasar variables
+    return render_template('evento_con_comentario.html', listacomentarios=listacomentarios, evento=evento, nombreusuario="pablo",usuario="no_iniciado") #Mostrar template y pasar variables
 
 @app.route('/nuevoevento')
 def crear_evento():
