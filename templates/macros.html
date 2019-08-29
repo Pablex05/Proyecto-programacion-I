@@ -1,6 +1,4 @@
 {% macro mostrar_eventos (evento) %}
-
-
 <div class="conteiner-fluid"><br><br><img src="{{url_for('static', filename='imagenes/relleno.png')}}" >
 <div class="card" style="width: 30rem;float:center;">
 <img class="card-img-top" src="/static/imagenes/imagen.jpg">
@@ -18,7 +16,6 @@
     </div>
 <br>
 <img src="{{url_for('static', filename='imagenes/relleno.png')}}" >
-
 {% endmacro %}
 
 
@@ -26,22 +23,16 @@
 {% macro evento_comentarios (comentario) %}
 	<div class="col-md-2"></div>
 <div class="col-md-8">
-
 <div class="jumbotron" style=" margin:5px">
   <img style="float:center; margin:row; width: 40px; height: 40px" src="/static/imagenes/usuario_logo.png"><h5>{{comentario["id"]}}</h5>
 	  <p><h5>{{comentario["texto"]}}</h5></p>
 </div>
 </div>
 	<div class="col-md-2"></div>
-
 {% endmacro %}
 
 
 {% macro panel_evento (evento) %}
-
-
-
-
 	<tr>
         <td style="text-align:center">{{evento["id"]}}</td>
         <td style="width:50%">{{evento["titulo"]}}</td>
@@ -53,6 +44,28 @@
 <tr>
     <td colspan="6"><br></td>
 </tr>
-
-
     {% endmacro %}
+
+
+{% macro mostrar_error(campo) %}
+    {% if campo.errrors %}
+    <div class="alert alert-danger" role="alert">
+        {%for error in campo.errors %}
+        {{error}}<br>
+        {% endfor %}
+    </div>
+    {% endif %}
+{% endmacro %}
+
+
+{% macro mostrar_campo(campo) %}
+	{{ campo.label }}
+	{{ campo(**kwargs)|safe }}
+	{{mostrar_error(campo)}}
+{% endmacro %}
+
+
+{% macro mostrar_campo_submit(campo) %}
+	{{ campo(**kwargs)|safe }} <!-- Mostrar campo -->
+{% endmacro %}
+
