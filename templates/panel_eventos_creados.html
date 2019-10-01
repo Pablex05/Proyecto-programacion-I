@@ -10,26 +10,29 @@
 			<form>
 <div class="jumbotron" style=" margin:auto">
 
-
 <table style="width:100%">
 		<tr>
 			<td style="float:"><h4><u>USUARIO</u></h4></td>
 			<td style="width:30%;text-align:center"><h4><u>TITULO</u></h4></td>
-			<td style="width:40%"><h4><u>FECHA</u></td>
-        <td style="width:5%"></td>
-        <td style="width:5%"></td>
-        <td style="width:5%"></td>
-
-    </tr>
+			<td style="width:30%"><h4><u>FECHA</u></td>
+			<td style="width:25%"><h4><u>ESTADO</u></td>
+        	<td style="width:5%"></td>
+        	<td style="width:5%"></td>
+        	<td style="width:5%"></td>
+		</tr>
 
 {% for evento in listaeventos %}
 
-
-{{panel_evento (evento)}}
-
+	{{panel_evento (evento)}}
 
 {% endfor %}
-	</table>
+
+{% for estado in evento %}
+
+	{{panel_evento (estado)}}
+
+{% endfor %}
+</table>
 </div>
 
 			</form>
