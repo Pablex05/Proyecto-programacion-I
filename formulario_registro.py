@@ -5,6 +5,8 @@ from wtforms.fields.html5 import EmailField,DateField #Importa campos HTML
 from wtforms import validators #Importa validaciones
 from wtforms_components import TimeField
 from flask_wtf.file import FileField, FileRequired, FileAllowed #Importa funciones, validaciones y campos de archivo
+from app import db
+from modelos import *
 
 #Clase de Registro
 class Registro(FlaskForm):

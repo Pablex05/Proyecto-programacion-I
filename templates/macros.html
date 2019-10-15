@@ -34,11 +34,11 @@
 
 {% macro panel_evento (evento) %}
 	<tr>
-        <td style="text-align:center">{{evento["id"]}}</td>
-        <td style="width:50%">{{evento["titulo"]}}</td>
+        <td style="text-align:center">{{evento["eventoId"]}}</td>
+        <td style="width:50%">{{evento["nombre"]}}</td>
         <td style="width:40%">{{evento["fecha"]}}</td>
         <td style="width:5%">{{evento["estado"]}}</td>
-        <td style="width:5%"><a href="{{url_for('evento',id=evento['id'])}}" class="btn btn-primary">Ir a …</a></td>
+        <td style="width:5%"><a href="{{url_for('evento',id=evento['eventoId'])}}" class="btn btn-primary">Ir a …</a></td>
         <td style="width:5%"><a href="{{url_for('modificar_evento',id=evento['id'])}}" class="btn btn-secondary">Modificar</a></td>
         <td style="width:5%"><a href="{{url_for('eliminar_evento',id=evento['id'])}}" class="btn btn-danger">Eliminar</a></td>
         {% if evento!="estado" %}

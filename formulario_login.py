@@ -3,6 +3,8 @@ from flask_wtf import FlaskForm #Importa funciones de formulario
 from wtforms import PasswordField, SubmitField#Importa campos
 from wtforms.fields.html5 import EmailField #Importa campos HTML
 from wtforms import validators #Importa validaciones
+from app import db
+from modelos import *
 
 #Clase de Login
 class Login(FlaskForm):

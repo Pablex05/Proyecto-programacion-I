@@ -1,13 +1,18 @@
-def listar_eventos():
-    import csv
-    with open('actividades-culturales.csv') as f:
-        a = [{k: v for k, v in row.items()}
-             for row in csv.DictReader(f, skipinitialspace=True)]
-    return a
+from app import db
+from modelos import Comentario, Evento, Usuario
 
-def evento_comentarios():
-    import csv
-    with open('comentarios.csv') as f:
-        a = [{k: v for k, v in row.items()}
-             for row in csv.DictReader(f, skipinitialspace=True)]
-    return a
+def comentarios():
+    listar_comentarios = db.session.query(Comentario).all()
+    return listar_comentarios
+def eventos():
+    listar_eventos = db.session.query(Evento).all()
+    return listar_eventos
+def crear_evento(evento):
+    db.session.add(evento)
+    db.session.commit()
+def crear_usuario(usuario):
+    db.session.add(usuario)
+    db.session.commit()
+def crear_comentario(comentario):
+    db.session.add(comentario)
+    db.session.commit()
