@@ -4,7 +4,7 @@ from wtforms.fields.html5 import EmailField,DateField,DateTimeField
 from flask_wtf.file import FileField, FileRequired, FileAllowed
 from wtforms_components import TimeField
 
-class Evento(Form):
+class Evento_form(Form):
 
     #Función para hacer campo opcional
     def opcional(field):
@@ -19,6 +19,6 @@ class Evento(Form):
     aceptar_evento = SubmitField('Enviar Evento')
 
 
-class Comentario(Form):
+class Comentario_form(Form):
     comentario = StringField('Escribir un Comentario:',[validators.DataRequired(message="Comentario faltante")])
     submit = SubmitField("Enviar Comentario")

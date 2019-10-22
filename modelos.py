@@ -9,10 +9,11 @@ class Evento(db.Model):
 	descripcion = db.Column(db.String(500), nullable = False)
 	imagen = db.Column(db.String(40), nullable = False)
 	tipo = db.Column(db.String(15), nullable = False)
+	lugar = db.Column(db.String(100), nullable = False)
 	usuarioId = db.Column(db.Integer, db.ForeignKey('usuario.usuarioId'), nullable = False)
 	usuario = db.relationship('Usuario', back_populates="eventos")
 	estado = db.Column(db.Integer, primary_key=False)
-	comentarios = db.relationship('Comentario', back_populates="evento")
+	comentarios = db.relationship('Comentario', back_populates="evento",cascade="all, delete-orphan")
 	def __repr__(self):
 		return '<Evento %r %r %r %r ' % (self.nombre, self.fecha, self.tipo, self.descripcion)
 class Usuario(db.Model):

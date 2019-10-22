@@ -6,9 +6,11 @@
     <h3 class="card-title">{{evento["nombre"]}}</h3>
     <p><h5>Fecha:{{evento["fecha"]}}</h5></p>
     <p><h5>Hora:{{evento["hora"]}}</h5></p>
+    <p><h5>Lugar:{{evento["lugar"]}}</h5></p>
     <p><h5>Descripcion:{{evento["descripcion"]}}</h5></p>
+	
 </p>
- <a href="{{url_for('evento',id=evento['id'])}}" class="btn btn-primary">Ir a …</a>
+ <a href="{{url_for('evento',id=evento['eventoId'])}}" class="btn btn-primary">Ir a …</a>
   </div>
 </div><br>
 </div>
@@ -45,13 +47,13 @@
 
 	<td style="width:40%;text-align:center"></td>
         <td style="width:5%"><a href="{{url_for('evento',id=evento['eventoId'])}}" class="btn btn-primary">Ir a …</a></td>
-        <td style="width:5%"><a href="{{url_for('modificar_evento',id=evento['id'])}}" class="btn btn-secondary">Modificar</a></td>
-        <td style="width:5%"><a href="{{url_for('eliminar_evento',id=evento['id'])}}" class="btn btn-danger">Eliminar</a></td>
+        <td style="width:5%"><a href="{{url_for('modificar_evento',id=evento['eventoId'])}}" class="btn btn-secondary">Modificar</a></td>
+        <td style="width:5%"><a href="{{url_for('eliminar_evento',id=evento['eventoId'])}}" class="btn btn-danger">Eliminar</a></td>
         {% if evento.estado == 0 %}
-            <td style="width:5%"><a href="{{url_for('evento',id=evento['id'])}}" type="button" class="btn btn-success">Aprobar</a></td>
+            <td style="width:5%"><a href="{{url_for('aprobar_evento',id=evento['eventoId'],estado=1)}}" type="button" class="btn btn-success">Aprobar</a></td>
 	{% endif %}	
 	{% if evento.estado == 1 %}
-            <td style="width:5%"><a href="{{url_for('evento',id=evento['id'])}}" type="button" class="btn btn-danger">Desaprobar</a></td>
+            <td style="width:5%"><a href="{{url_for('aprobar_evento',id=evento['eventoId'],estado=0)}}" type="button" class="btn btn-danger">Desaprobar</a></td>
         {% endif %}
 
     </tr>
