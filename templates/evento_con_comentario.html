@@ -8,8 +8,8 @@
 <div class="jumbotron">
         <div align="center" ><img  style="width:80% ; height: 80%" src="/static/imagenes/imagen.jpg" style="margin:auto"></div>
 
-	<h1 align="center"><b><u>{{evento["titulo"]}}</u> </b></h1>
-	<h3><u>Nombre:</u> {{evento["titulo"]}}</h3>
+	<h1 align="center"><b><u>{{evento["nombre"]}}</u> </b></h1>
+	<h3><u>Nombre:</u> {{evento["nombre"]}}</h3>
 	<h3><u>Fecha:</u> {{evento["fecha"]}}</h3>
 	<h3><u>Horario:</u> {{evento["hora"]}}</h3>
 	<h3><u>Descripcion:</u> {{evento["descripcion"]}}</h3>
@@ -17,10 +17,7 @@
 </div>
 </div>
 </div>
-
-
-
-
+<!----- esto es el conjunto de los comentarios ------->
 <div class="row">
 	<div class="col-md-2"></div>
 <div class="col-md-8">
@@ -46,7 +43,7 @@
 
 
 {% endfor %}
-
+<!----------------------------------------------------->
 </div>
 
 {%endblock%}

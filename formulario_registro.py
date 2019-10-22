@@ -15,17 +15,27 @@ class Registro(FlaskForm):
     def nombre_usuario(form,field):
         if (field.data.find("_")!= -1) or (field.data.find("#")!= -1) :
              raise validators.ValidationError("El nombre de usuario solo puede contener letras, números y .")
+    def apellido_usuario(form,field):
+        if (field.data.find("_")!= -1) or (field.data.find("#")!= -1) :
+             raise validators.ValidationError("El nombre de usuario solo puede contener letras, números y .")
 
     #Función para hacer campo opcional
     def opcional(field):
         field.validators.insert(0, validators.Optional())
 
     #Definición de campo String
-    nombre = StringField('Nombre Usuario',
+    nombre = StringField('Nombre',
     [
         #Definición de validaciones
-        validators.Required(message = "Completar nombre de usuario de usuario"),
-        validators.length(min=4, max=25, message='La longitud del nombre de usuario no es válida'),
+        validators.Required(message = "Completar nombre"),
+        validators.length(min=4, max=25, message='La longitud del nombre no es válida'),
+        nombre_usuario
+    ])
+    apellido = StringField('Apellido',
+    [
+        #Definición de validaciones
+        validators.Required(message = "Completar apellido"),
+        validators.length(min=4, max=25, message='La longitud del apellido no es válida'),
         nombre_usuario
     ])
     email = EmailField('Correo',

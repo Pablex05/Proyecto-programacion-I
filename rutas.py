@@ -50,29 +50,29 @@ def usuario_nuevo():
     return render_template('registro_de_nuevo_usuario.html', formulario = formulario, usuario="iniciado")  # Mostrar template y pasar variables
 
 
-@app.route('/usuario/eventoPublicado/<id>' , methods=["GET", "POST"])
+@app.route('/usuario/eventoPublicado/<id>' , methods=["GET"])
 def evento(id):
     formularioLogin = Login()
     evento = db.session.query(Evento).get(id)
     return render_template('evento_con_comentario.html', evento=evento, nombreusuario="pablo",usuario="iniciado",formularioLogin = formularioLogin) #Mostrar template y pasar variables
 
-@app.route('/usuario/nuevoEvento', methods=["GET", "POST"])
+@app.route('/usuario/nuevoEvento', methods=["POST"])
 def crear_evento():
     formularioLogin = Login()
     formulario = Evento()
     if formulario.validate_on_submit():  # Si el formulario es validado correctamente
-        flash('Usuario actualizado exitosamente', 'success')  # Mostrar mensaje
+        flash('evento creado exitosamente', 'success')  # Mostrar mensaje
         mostrar_datos(formulario)  # Mostrar datos obtenido por consola
         return redirect(url_for('actualizar'))  # Redirecciona a la función actualizar
     return render_template('crear_nuevo_evento.html',nombreusuario="pablo",usuario="iniciado", formulario=formulario, destino="creando_evento", formularioLogin=formularioLogin) # Muestra el formulario
 
-@app.route('/usuario/evento/modificarEvento', methods=["GET"])
+@app.route('/usuario/evento/modificarEvento/<id>', methods=["GET"])
 def modificar_evento():
     formularioLogin = Login()
     formulario = Evento()
-    formulario.titulo.data="hola"
+    formulario.nombre.data="hola"
     if formulario.validate_on_submit():  # Si el formulario es validado correctamente
-        flash('Usuario actualizado exitosamente', 'success')  # Mostrar mensaje
+        flash('Evento actualizado exitosamente', 'success')  # Mostrar mensaje
         mostrar_datos(formulario)  # Mostrar datos obtenido por consola
         return redirect(url_for('modificar_evento'))  # Redirecciona a la función actualizar
     return render_template('crear_nuevo_evento.html', nombreusuario="pablo", usuario="iniciado", formulario=formulario, destino="modificar_evento", formularioLogin=formularioLogin)  # Muestra el formulario
@@ -83,14 +83,13 @@ def eliminar_evento():
     evento = db.session.query(Evento).get(id)
     db.session.delete(evento)
     db.session.commit()
-    return redirect(url_for('listarPersonas'))
+    return redirect(url_for('panel_eventos'))
 
 @app.route('/usuario/panelDeEventos', methods=["GET", "POST"])
 def panel_eventos():
     formularioLogin = Login()
     listaeventos = eventos()
-    estado = 1
-    return render_template('panel_eventos_creados.html', listaeventos=listaeventos, nombreusuario="pablo",usuario="iniciado",formularioLogin = formularioLogin, estado=estado)
+    return render_template('panel_eventos_creados.html', listaeventos=listaeventos, nombreusuario="pablo",usuario="iniciado",formularioLogin = formularioLogin)
 
 @app.route('/usuario/evento/colocandoComentario',methods=["POST"])
 def agregar_comentario():
