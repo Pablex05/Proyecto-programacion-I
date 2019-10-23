@@ -11,6 +11,7 @@ from flask import request
 from formulario_evento import Evento_form, Comentario_form
 from app import db
 from modelos import Evento,Usuario,Comentario
+from werkzeug.utils import secure_filename #Importa seguridad nombre de archivo
 
 import os.path
 
@@ -62,13 +63,15 @@ def crear_evento():
     formulario = Evento_form()
     if formulario.validate_on_submit():  # Si el formulario es validado correctamente
         flash('evento creado exitosamente', 'success')  # Mostrar mensaje
-        mostrar_datos(formulario)  # Mostrar datos obtenido por consola
-        evento = Evento(nombre = formulario.titulo.data, fecha = formulario.fecha.data, hora = formulario.hora.data, lugar = formulario.lugar.data,descripcion = formulario.descripcion.data)
-        crear_evento(evento)
-        return redirect(url_for('crear_evento'))  # Redirecciona a la función actualizar
+        f = formulario.imagen.data
+        filename = secure_filename(f.filename)
+        f.save(os.path.join('static/imagenes', filename))
+        evento = Evento(nombre = formulario.titulo.data, fecha = formulario.fecha.data, hora = formulario.hora.data, lugar = formulario.lugar.data,descripcion = formulario.descripcion.data, imagen = "imagen2.png")
+        db.session.add(evento)
+        db.session.commit()
     return render_template('crear_nuevo_evento.html',nombreusuario="pablo",usuario="iniciado", formulario=formulario, destino="creando_evento", formularioLogin=formularioLogin) # Muestra el formulario
 
-@app.route('/usuario/evento/modificarEvento/<id>', methods=["GET", "POST"])
+@app.route('/usuario/evento/modificarEvento/<id>', methods=["GET"])
 def modificar_evento(id):
     formularioLogin = Login()
     formulario = Evento_form()

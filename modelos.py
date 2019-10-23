@@ -7,7 +7,7 @@ class Evento(db.Model):
 	fecha = db.Column(db.Date, nullable = False)
 	hora = db.Column(db.Time, nullable=False)
 	descripcion = db.Column(db.String(500), nullable = False)
-	imagen = db.Column(db.String(40), nullable = False)
+	imagen = db.Column(db.String(40), nullable = True)
 	tipo = db.Column(db.String(15), nullable = False)
 	lugar = db.Column(db.String(100), nullable = False)
 	usuarioId = db.Column(db.Integer, db.ForeignKey('usuario.usuarioId'), nullable = False)
