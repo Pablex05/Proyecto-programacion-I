@@ -66,10 +66,10 @@ def crear_evento():
         f = formulario.imagen.data
         filename = secure_filename(f.filename)
         f.save(os.path.join('static/imagenes', filename))
-        evento = Evento(nombre = formulario.titulo.data, fecha = formulario.fecha.data, hora = formulario.hora.data, lugar = formulario.lugar.data,descripcion = formulario.descripcion.data, imagen = "imagen2.png")
+        evento = Evento(nombre = formulario.titulo.data, fecha = formulario.fecha.data, hora = formulario.hora.data, lugar = formulario.lugar.data,descripcion = formulario.descripcion.data, imagen = "imagen2.png", usuarioId = 201)
         db.session.add(evento)
         db.session.commit()
-    return render_template('crear_nuevo_evento.html',nombreusuario="pablo",usuario="iniciado", formulario=formulario, destino="creando_evento", formularioLogin=formularioLogin) # Muestra el formulario
+    return render_template('crear_nuevo_evento.html',nombreusuario="pablo",usuario="iniciado",formulario=formulario, destino="creando_evento", formularioLogin=formularioLogin) # Muestra el formulario
 
 @app.route('/usuario/evento/modificarEvento/<id>', methods=["GET"])
 def modificar_evento(id):

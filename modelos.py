@@ -12,7 +12,7 @@ class Evento(db.Model):
 	lugar = db.Column(db.String(100), nullable = False)
 	usuarioId = db.Column(db.Integer, db.ForeignKey('usuario.usuarioId'), nullable = False)
 	usuario = db.relationship('Usuario', back_populates="eventos")
-	estado = db.Column(db.Integer, primary_key=False)
+	estado = db.Column(db.Integer, nullable = False, default=0)
 	comentarios = db.relationship('Comentario', back_populates="evento",cascade="all, delete-orphan")
 	def __repr__(self):
 		return '<Evento %r %r %r %r ' % (self.nombre, self.fecha, self.tipo, self.descripcion)
