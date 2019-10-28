@@ -9,6 +9,12 @@ class Evento_form(Form):
     #Función para hacer campo opcional
     def opcional(field):
         field.validators.insert(0, validators.Optional())
+    def nombre_usuario(form,field):
+        if (field.data.find("_")!= -1) or (field.data.find("#")!= -1) :
+             raise validators.ValidationError("El nombre de usuario solo puede contener letras, números y .")
+    def apellido_usuario(form,field):
+        if (field.data.find("_")!= -1) or (field.data.find("#")!= -1) :
+             raise validators.ValidationError("El nombre de usuario solo puede contener letras, números y .")
 
     titulo = StringField('Título Evento',[validators.DataRequired()])
     fecha = DateField('Fecha Evento',[validators.DataRequired(message="Ingrese una fecha válida")])

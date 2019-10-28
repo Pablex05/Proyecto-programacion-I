@@ -22,11 +22,11 @@ class Usuario(db.Model):
 	apellido = db.Column(db.String(20), nullable = False)
 	email = db.Column(db.String(50), nullable = False)
 	password = db.Column(db.String(40), nullable = False)
-	admin = db.Column(db.Boolean, nullable = False)
+	admin = db.Column(db.Boolean, nullable = False, default=0)
 	comentarios = db.relationship('Comentario', back_populates="usuario")
 	eventos = db.relationship('Evento', back_populates="usuario")
 	def __repr__(self):
-		return '<Usuario %r %r>' % (self.nombre, self.apellido)
+		return '<Usuario %r %r %r %r>' % (self.nombre, self.apellido, self.email, self.password)
 class Comentario(db.Model):
 	comentarioId = db.Column(db.Integer, primary_key=True)
 	texto = db.Column(db.String(500),nullable = False)
@@ -38,5 +38,3 @@ class Comentario(db.Model):
 	usuario = db.relationship('Usuario', back_populates="comentarios")
 	def __repr__(self):
 		return '<Comentario %r %r>' % (self.texto, self.fechahora)
-#db.drop_all()
-#db.create_all()

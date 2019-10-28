@@ -12,7 +12,6 @@ from formulario_evento import Evento_form, Comentario_form
 from app import db
 from modelos import Evento,Usuario,Comentario
 from werkzeug.utils import secure_filename #Importa seguridad nombre de archivo
-
 import os.path
 
 
@@ -44,11 +43,15 @@ def login():
 
 @app.route('/usuario/nuevoUsuario', methods=["GET", "POST"])
 def usuario_nuevo():
-    formulario = Registro()
-    if formulario.validate_on_submit():
-        flash('Login realizado correctamente', 'success')
-
-    return render_template('registro_de_nuevo_usuario.html', formulario = formulario, usuario="iniciado")  # Mostrar template y pasar variables
+    formularioLogin = Login()
+    formulario_usuario = Registro()
+    if formulario_usuario.validate_on_submit():
+        flash('Registro realizado correctamente', 'success')
+        usuario = Usuario(nombre=formulario_usuario.nombre.data, apellido=formulario_usuario.apellido.data, email=formulario_usuario.email.data, password=formulario_usuario.password.data)
+        db.session.add(usuario)
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('registro_de_nuevo_usuario.html', formulario = formulario_usuario, usuario="iniciado")  # Mostrar template y pasar variables
 
 
 @app.route('/usuario/eventoPublicado/<id>' , methods=["GET"])
@@ -84,7 +87,7 @@ def modificar_evento(id):
     if formulario.validate_on_submit():  # Si el formulario es validado correctamente
         flash('Evento actualizado exitosamente', 'success')  # Mostrar mensaje
         mostrar_datos(formulario)  # Mostrar datos obtenido por consola
-        return redirect(url_for('modificar_evento'))  # Redirecciona a la función actualizar
+        return redirect(url_for('panel_eventos'))  # Redirecciona a la función actualizar
     return render_template('crear_nuevo_evento.html', nombreusuario="pablo", usuario="iniciado", formulario=formulario, destino="modificar_evento", formularioLogin=formularioLogin)  # Muestra el formulario
 
 

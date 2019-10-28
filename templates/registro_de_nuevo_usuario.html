@@ -11,6 +11,8 @@
 							<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 							<h1>Registro de nuevo Usuario</h1>
 								<!-- <from action="" method="post"> -->
+			<form method="POST" action="{{ url_for("crear_evento") }}" enctype="multipart/form-data" >
+	      		<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 							<div class="form-group">
 								{{ mostrar_campo(formulario.nombre, class='form-control' )}}
 							 </div>

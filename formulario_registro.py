@@ -27,7 +27,7 @@ class Registro(FlaskForm):
     nombre = StringField('Nombre',
     [
         #Definición de validaciones
-        validators.Required(message = "Completar nombre"),
+        validators.DataRequired(message="Completar nombre"),
         validators.length(min=4, max=25, message='La longitud del nombre no es válida'),
         nombre_usuario
     ])
