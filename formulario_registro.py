@@ -1,12 +1,11 @@
 # - *- coding: utf- 8 - *-
-from flask_wtf import FlaskForm #Importa funciones de formulario
-from wtforms import StringField, TextField , HiddenField, PasswordField, TextAreaField, SelectField, RadioField,SubmitField #Importa campos
-from wtforms.fields.html5 import EmailField,DateField #Importa campos HTML
-from wtforms import validators #Importa validaciones
-from wtforms_components import TimeField
-from flask_wtf.file import FileField, FileRequired, FileAllowed #Importa funciones, validaciones y campos de archivo
 from app import db
-from modelos import *
+from modelos import Usuario
+from flask_wtf import FlaskForm
+from wtforms.fields.html5 import EmailField
+from wtforms import PasswordField, BooleanField, SubmitField, StringField, validators
+from wtforms.validators import ValidationError, Required, Email, EqualTo
+
 
 #Clase de Registro
 class Registro(FlaskForm):
@@ -55,3 +54,7 @@ class Registro(FlaskForm):
 
     submit = SubmitField("Regristrar")
 
+    def validate_email(self, field):
+        if Usuario.query.filter_by(email=field.data).first():
+
+            raise ValidationError('El email ya ha sido registrado.')

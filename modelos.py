@@ -1,4 +1,5 @@
 # - *- coding: utf- 8 - *-
+from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app import db, login_manager
@@ -19,16 +20,17 @@ class Evento(db.Model):
 	comentarios = db.relationship('Comentario', back_populates="evento",cascade="all, delete-orphan")
 	def __repr__(self):
 		return '<Evento %r %r %r %r ' % (self.nombre, self.fecha, self.tipo, self.descripcion)
-class Usuario(db.Model):
+class Usuario(UserMixin, db.Model):
 	usuarioId = db.Column(db.Integer, primary_key=True)
 	nombre = db.Column(db.String(20), nullable = False)
 	apellido = db.Column(db.String(20), nullable = False)
 	email = db.Column(db.String(50), nullable = False)
-	password_hash = db.Column(db.String(40), nullable = False)
+	password_hash = db.Column(db.String(128), nullable = False)
 	admin = db.Column(db.Boolean, nullable = False, default=0)
 	comentarios = db.relationship('Comentario', back_populates="usuario")
 	eventos = db.relationship('Evento', back_populates="usuario")
-"""
+	confirmado = db.Column(db.Boolean, default=False)
+
 	#  No permitir leer la pass de un usuario
 	@property
 	def password(self):
@@ -61,7 +63,7 @@ class Usuario(db.Model):
 		if self.usuarioId == event_or_coment.usuarioId:
 			aux = True
 		return aux
-"""
+
 
 class Comentario(db.Model):
 	comentarioId = db.Column(db.Integer, primary_key=True)

@@ -1,5 +1,5 @@
 # - *- coding: utf- 8 - *-
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 
 from funciones import comentarios, eventos, crear_evento, crear_usuario, crear_comentario
 from flask import Flask, render_template, app  # Permite importar templates
@@ -11,20 +11,31 @@ from formulario_login import Login #importar clase de formulario
 import datetime #importar funciones de fecha
 from flask import request
 from formulario_evento import Evento_form, Comentario_form
-from app import db,app
+from app import db, app, login_manager
 from funciones_mail import enviarMailRegistro
 from modelos import Evento,Usuario,Comentario
 from werkzeug.utils import secure_filename #Importa seguridad nombre de archivo
 import os.path
 
 
+@login_manager.unauthorized_handler
+def unauthorized_callback():
+    flash('Debe iniciar sesión para continuar.', 'warning')
+    return redirect(url_for('ingresar'))
 
+
+def has_permission(user, evento):
+    aux = False
+    if user.is_authenticated:
+        if user.is_admin() or user.is_owner(evento):
+            aux = True
+    return aux
 
 @app.route('/')
 def index():
     formularioLogin = Login() #Instanciar formulario de Login
     listaeventos = eventos()
-    return render_template('pagina_principal.html', listaeventos = listaeventos, usuario="iniciado",formularioLogin = formularioLogin)
+    return render_template('pagina_principal.html', listaeventos = listaeventos, formularioLogin = formularioLogin)
 @app.route('/usuario/login', methods=["POST"])
 def login():
     formularioLogin = Login()
@@ -37,25 +48,46 @@ def login():
         else:
             #Mostrar error de autenticación
             flash('Email o pass incorrectas.','success')
-    return redirect(url_for('index', usuario="iniciado", formularioLogin = formularioLogin))
+    return redirect(url_for('index', formularioLogin = formularioLogin))
 
+@app.route('/logout')
+#Limitar el acceso a los usuarios registrados
+@login_required
+def logout():
+    logout_user()
+    #Insntanciar formulario de Login
+    formularioLogin = Login()
+    return render_template('pagina_principal.html', formularioLogin=formularioLogin)
+"""
+@app.route('/confirmar/<token>')
+#Limitar el acceso a los usuarios registrados
+@login_required
+def confirmar(token):
+    if current_user.confirmado:
+        return redirect(url_for('index'))
+    if current_user.confirmar(token):
+        flash('La cuenta ha sido confirmada','success')
+    else:
+        flash('La cuenta no pudo ser confirmada.','danger')
+        return redirect(url_for('index'))
+    return redirect(url_for('usuario'))
+"""
 @app.route('/usuario/nuevoUsuario', methods=["GET", "POST"])
 def usuario_nuevo():
     formularioLogin = Login()
     formulario_usuario = Registro()
+
     if formulario_usuario.validate_on_submit():
         flash('Registro realizado correctamente', 'success')
         usuario = Usuario(nombre=formulario_usuario.nombre.data, apellido=formulario_usuario.apellido.data, email=formulario_usuario.email.data, password=formulario_usuario.password.data)
         db.session.add(usuario)
         db.session.commit()
-
         token = usuario.generar_token_confirmacion()
         print(enviarMailRegistro(usuario=usuario, token=token))
         flash('Se ha enviado un mail de confirmación.','success')
         login_user(usuario, True)
-
         return redirect(url_for('index'))
-    return render_template('registro_de_nuevo_usuario.html', formulario = formulario_usuario, usuario="iniciado")  # Mostrar template y pasar variables
+    return render_template('registro_de_nuevo_usuario.html', formulario = formulario_usuario, formularioLogin=formularioLogin)  # Mostrar template y pasar variables
 
 
 @app.route('/usuario/eventoPublicado/<id>' , methods=["GET"])
@@ -116,14 +148,6 @@ def panel_eventos():
     formularioLogin = Login()
     listaeventos = eventos()
     return render_template('panel_eventos_creados.html', listaeventos=listaeventos, nombreusuario="pablo",usuario="iniciado",formularioLogin = formularioLogin)
-
-@app.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    #Instanciar formulario de Login
-    formularioLogin = Login()
-    return render_template('index.html', formularioLogin=formularioLogin)
 
 @app.route('/usuario/evento/colocandoComentario',methods=["POST"])
 def agregar_comentario():

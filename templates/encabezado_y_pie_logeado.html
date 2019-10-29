@@ -23,7 +23,7 @@
 		  </li>
       </ul>
 
-        {% if usuario=="iniciado" %}
+        {% if current_user.is_authenticated %}
          <ul class="navbar-nav mr-auto">
 		    <li class="nav-item dropdown">
 			    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -48,17 +48,17 @@
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
           Usuario
         </font></font></a>
+
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Configuracion</font></font></a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Salir Sesion </font><img src="/static/imagenes/cerrar_sesion.png"></font></a>
+          <a class="dropdown-item" href="{{url_for('logout')}}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Salir Sesion </font><img src="/static/imagenes/cerrar_sesion.png"></font></a>
         </div>
         </li>
          <img src="{{url_for('static', filename='imagenes/relleno.png')}}" ><img src="{{url_for('static', filename='imagenes/relleno.png')}}" >
         {% endif%}
 
         {% from "macros.html" import mostrar_campo, mostrar_campo_submit %}
-        {% if usuario=="no_iniciado" %}
+        {% if not current_user.is_authenticated %}
         <!--<div class="navbar-collapse collapse w-100 order-1 dual-collapse2">-->
             <ul class="navbar-nav ml-auto">
                 <form class="form-line my-10 my-lg-1">

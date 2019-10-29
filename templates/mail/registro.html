@@ -1,0 +1,14 @@
+{% extends 'mail/main.html' %}
+{% block contenido %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+	    Hola {{usuario.email}} !
+	    Tu registro ha sido exitoso, para confirmar ingresa  :<a href="{{ url_for('confirmar', token=token, _external=True) }}">aquí</a> para confirmar tu cuenta
+      o ingresa lo siguiente en tu navegador:
+      {{ url_for('confirmar', token=token, _external=True) }}
+  	</div>
+  </div>
+</div>
+{% endblock%}
