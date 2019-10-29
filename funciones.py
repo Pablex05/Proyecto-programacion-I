@@ -1,7 +1,5 @@
 from app import db
 from modelos import Comentario, Evento, Usuario
-from datetime import date
-
 
 def comentarios():
     listar_comentarios = db.session.query(Comentario).all()

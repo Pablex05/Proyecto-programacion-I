@@ -1,16 +1,12 @@
 # - *- coding: utf- 8 - *-
-from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, TextAreaField, SelectField, \
-    SubmitField, BooleanField, ValidationError
-from wtforms.fields.html5 import EmailField, DateField
-from wtforms import validators
-from wtforms_components import TimeField, DateRange
-from flask_wtf.file import FileField, FileRequired, FileAllowed
-from datetime import date
-import re
+from flask_wtf import FlaskForm #Importa funciones de formulario
+from wtforms import StringField, TextField , HiddenField, PasswordField, TextAreaField, SelectField, RadioField,SubmitField #Importa campos
+from wtforms.fields.html5 import EmailField,DateField #Importa campos HTML
+from wtforms import validators #Importa validaciones
+from wtforms_components import TimeField
+from flask_wtf.file import FileField, FileRequired, FileAllowed #Importa funciones, validaciones y campos de archivo
 from app import db
-from modelos import Usuario
-
+from modelos import *
 
 #Clase de Registro
 class Registro(FlaskForm):
@@ -58,13 +54,4 @@ class Registro(FlaskForm):
 
 
     submit = SubmitField("Regristrar")
-    #Verificar si el email ya existe en la db
-    def validate_email(self, field):
-        if Usuario.query.filter_by(email=field.data).first():
-            raise ValidationError('El email ya ha sido registrado.')
 
-def validarCuenta(email):
-    aux = False
-    if db.session.query(Usuario).filter(Usuario.email.ilike(email)).count() == 0:
-        aux = True
-    return aux

@@ -39,22 +39,10 @@
 
 {% for comentario in listacomentarios %}
 
-        {% if current_user.is_authenticated %}
 
-            {% if current_user.is_admin() or
-            current_user.is_owner(comentario) or
-            current_user.is_owner(evento) %}
+{{evento_comentarios (comentario)}}
 
-                {{ comments_admin(comentario) }}
 
-            {% else %}
-
-                {{ comments(comentario) }}
-
-            {% endif %}
-        {% else %}
-            {{ comments(comentario) }}
-        {% endif %}
 {% endfor %}
 <!----------------------------------------------------->
 </div>
