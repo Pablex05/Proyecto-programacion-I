@@ -1,8 +1,15 @@
-from flask_wtf import Form
-from wtforms import StringField,PasswordField,SubmitField,validators,TextField
-from wtforms.fields.html5 import EmailField,DateField,DateTimeField
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, TextAreaField, SelectField, \
+    SubmitField, BooleanField
+from wtforms.fields.html5 import EmailField, DateField
+from wtforms import validators
+from wtforms_components import TimeField, DateRange
 from flask_wtf.file import FileField, FileRequired, FileAllowed
-from wtforms_components import TimeField
+from datetime import date
+import re
+from app import db
+from modelos import Evento, Comentario, Usuario
+
 
 class Evento_form(Form):
 
@@ -24,7 +31,20 @@ class Evento_form(Form):
     imagen = FileField('Imagen Evento',validators=[ validators.DataRequired(), FileAllowed(['jpg', 'png'], 'El archivo debe ser una imagen jpg o png')])
     aceptar_evento = SubmitField('Enviar Evento')
 
-
+"""
 class Comentario_form(Form):
     comentario = StringField('Escribir un Comentario:',[validators.DataRequired(message="Comentario faltante")])
     submit = SubmitField("Enviar Comentario")
+"""
+class Comentario_form(Form):
+    comentario = TextAreaField('Escriba su comentario',
+                              [
+                                  validators.DataRequired(message="No puede comentar en blanco."),
+                                  validators.length(min=4, max=350, message="Su comentario debe tener entre "
+                                                                            "4 y 350 caracteres")
+                              ])
+    submit = SubmitField("Comentar")
+
+    def mostrar_datos(self):
+        print("Comentario: " + str(self.comentario.data))
+

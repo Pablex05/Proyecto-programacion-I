@@ -22,11 +22,20 @@
 
 
 {% macro evento_comentarios (comentario) %}
-	<div class="col-md-2"></div>
-<div class="col-md-8">
+<div class="row">
+	<div class="col-lg-10"></div>
+<div class="col-md-10">
+
 <div class="jumbotron" style=" margin:5px">
   <img style="float:center; margin:row; width: 40px; height: 40px" src="/static/imagenes/usuario_logo.png"><h5>{{comentario["id"]}}</h5>
 	  <p><h5>{{comentario["texto"]}}</h5></p>
+         {% if comentario.usuario.admin == 0 %}
+
+        <h4> {{ comentario.usuario }} </h4>
+
+            {% else %}
+            <h4> {{ comentario.usuario }}
+        {% endif %}
 </div>
 </div>
 	<div class="col-md-2"></div>
