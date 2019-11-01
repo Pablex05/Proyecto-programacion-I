@@ -8,28 +8,28 @@ from app import db, login_manager
 class Evento(db.Model):
 	eventoId = db.Column(db.Integer, primary_key=True)
 	nombre = db.Column(db.String(80), nullable=False)
-	fecha = db.Column(db.Date, nullable = False)
+	fecha = db.Column(db.Date, nullable=False)
 	hora = db.Column(db.Time, nullable=False)
-	descripcion = db.Column(db.String(500), nullable = False)
-	imagen = db.Column(db.String(40), nullable = True)
-	tipo = db.Column(db.String(15), nullable = False)
-	lugar = db.Column(db.String(100), nullable = False)
-	usuarioId = db.Column(db.Integer, db.ForeignKey('usuario.usuarioId'), nullable = False)
+	descripcion = db.Column(db.String(500), nullable=False)
+	imagen = db.Column(db.String(40), nullable=False)
+	tipo = db.Column(db.String(15), nullable=True)
+	lugar = db.Column(db.String(100), nullable=False)
+	usuarioId = db.Column(db.Integer, db.ForeignKey('usuario.usuarioId'), nullable=False)
 	usuario = db.relationship('Usuario', back_populates="eventos")
-	estado = db.Column(db.Integer, nullable = False, default=0)
-	comentarios = db.relationship('Comentario', back_populates="evento",cascade="all, delete-orphan")
+	estado = db.Column(db.Integer, nullable=False, default=0)
+	comentarios = db.relationship('Comentario', back_populates="evento", cascade="all, delete-orphan")
 	def __repr__(self):
-		return '<Evento %r %r %r %r ' % (self.nombre, self.fecha, self.tipo, self.descripcion)
+		return '<Evento %r %r %r %r %r %r' % (self.nombre, self.fecha, self.tipo,self.hora, self.descripcion, self.lugar)
 class Usuario(UserMixin, db.Model):
 	usuarioId = db.Column(db.Integer, primary_key=True)
 	nombre = db.Column(db.String(20), nullable = False)
 	apellido = db.Column(db.String(20), nullable = False)
 	email = db.Column(db.String(50), nullable = False)
 	password_hash = db.Column(db.String(128), nullable = False)
-	admin = db.Column(db.Boolean, nullable = False, default=0)
+	admin = db.Column(db.Integer, nullable=False, default=0)
 	comentarios = db.relationship('Comentario', back_populates="usuario")
 	eventos = db.relationship('Evento', back_populates="usuario")
-	confirmado = db.Column(db.Boolean, default=False)
+	confirmado = db.Column(db.Integer, nullable=False, default=0)
 
 	#  No permitir leer la pass de un usuario
 	@property
@@ -80,3 +80,6 @@ class Comentario(db.Model):
 @login_manager.user_loader
 def load_user(user_id):
 	return Usuario.query.get(int(user_id))
+#db.drop_all()
+#db.create_all()
+

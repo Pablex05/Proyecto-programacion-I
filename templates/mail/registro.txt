@@ -1,4 +1,4 @@
 Hola {{usuario.email}} !
 
 Tu registro ha sido exitoso, para confirmar ingresa lo siguiente en tu navegador:
-{{ url_for('confirmar', token=token, _external=True) }}
+{{ url_for('confirmar', _external=True) }}

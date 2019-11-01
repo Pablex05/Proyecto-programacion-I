@@ -3,7 +3,7 @@
 {% from 'macros.html' import mostrar_eventos %} {# Importar el macro #}
 
 {%block contenido %}
-
+{% if current_user.is_authenticated %}
 <div class="row">
 <div class="col-md-3"style="float:left; margin:auto;width: 20rem"><br><br>
     <div class="form-group">
@@ -33,7 +33,8 @@
                 </div>
             </div>
         </div>
-
+{% endif %}
+<div class="row">
 <div class="col-lg-10" style="margin:auto;float:auto">
 
 <div class="row">
@@ -45,7 +46,7 @@
 
 
 {% endfor %}
-</div></div>
+</div></div></div>
 
 
 {% endblock %}

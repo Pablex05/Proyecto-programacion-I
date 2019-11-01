@@ -1,5 +1,5 @@
 {% macro mostrar_eventos (evento) %}
-
+{% if evento.estado == 1 %}
 <div class="conteiner-fluid"><br><br><img src="{{url_for('static', filename='imagenes/relleno.png')}}" >
 <div class="card" style="width: 30rem;float:center;">
 <img class="card-img-top" src="/static/imagenes/imagen.jpg">
@@ -16,7 +16,7 @@
 </div>
 <br>
 <img src="{{url_for('static', filename='imagenes/relleno.png')}}" >
-
+{% endif %}
 {% endmacro %}
 
 
