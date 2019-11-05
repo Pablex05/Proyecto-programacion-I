@@ -22,7 +22,7 @@ import os.path
 @login_manager.unauthorized_handler
 def unauthorized_callback():
     flash('Debe iniciar sesión para continuar.', 'warning')
-    return redirect(url_for('ingresar'))
+    return redirect(url_for('index'))
 
 
 def has_permission(user, evento):

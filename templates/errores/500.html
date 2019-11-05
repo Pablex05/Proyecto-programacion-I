@@ -1,0 +1,14 @@
+{% extends "encabezado_y_pie_logeado.html" %}
+{% from 'macros.html' import mostrar_eventos, mostrar_campo, mostrar_campo_submit %} {# Importar el macro #}
+
+{%block contenido %}
+<div class="col-md-12"><br><br>
+    <div class="form-group" style="float:left; margin:auto;width: 100%">
+	 <div class="jumbotron">
+        <h1>ERROR 500 :C</h1>
+         <a href="{{url_for('index')}}" type="button" class="btn btn-info">Volver al inicio</a>
+     </div>
+    </div>
+</div>
+
+{% endblock %}
