@@ -24,3 +24,12 @@ def internal_server_error(e):
         return response
     # Sino responder con template HTML
     return render_template('errores/500.html'), 500
+@app.errorhandler(705)
+def SQLAlchemyError(e):
+    print(e)
+    if request.accept_mimetypes.accept_json and not request.accept_mimetypes.accept_html:
+        # Responder con JSON
+        response = jsonify({'error': 'error en la base de datos'})
+        response.status_code = 705
+        return response
+    return render_template('errores/705.html'), 705

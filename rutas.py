@@ -77,7 +77,7 @@ def usuario_nuevo():
     formularioLogin = Login()
     formulario_usuario = Registro()
     if formulario_usuario.validate_on_submit():
-        if validarExistente(formulario_usuario.email.data):
+        if  validarExistente(formulario_usuario.email.data):
             flash('Cuenta creada con exito!', 'success')
             usuario = Usuario(nombre=formulario_usuario.nombre.data, apellido=formulario_usuario.apellido.data, email=formulario_usuario.email.data, password=formulario_usuario.password.data)
             db.session.add(usuario)
@@ -88,6 +88,7 @@ def usuario_nuevo():
             return redirect(url_for('index'))
         else:
             flash('Existe una cuenta registrada con el email ingresado', 'danger')
+            return redirect(url_for('index'))
     return render_template('registro_de_nuevo_usuario.html', formulario=formulario_usuario,formularioLogin=formularioLogin,nombreUsuario = current_user)  # Mostrar template y pasar variables
 
 
