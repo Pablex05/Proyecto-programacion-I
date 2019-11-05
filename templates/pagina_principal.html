@@ -1,52 +1,53 @@
 
 {% extends "encabezado_y_pie_logeado.html" %}
-{% from 'macros.html' import mostrar_eventos %} {# Importar el macro #}
+{% from 'macros.html' import mostrar_eventos, mostrar_campo, mostrar_campo_submit %} {# Importar el macro #}
 
 {%block contenido %}
 {% if current_user.is_authenticated %}
-<div class="row">
-<div class="col-md-3"style="float:left; margin:auto;width: 20rem"><br><br>
+<div class="row" style="float:left; margin:auto;width: 20rem">
+     <form method="POST" action="{{ url_for('index', _anchor='filter') }}" enctype="multipart/form-data">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+
+<div class="col-md-12"><br><br>
     <div class="form-group">
 	 <div class="jumbotron">
 
     <p><h2 align="center"><u><b>FILTRO</b></u></h2></p>
-    <p><h4>===>Fecha<===</h4></p>
-             <label for="fecha1">Desde</label>
-         <input class="form-control" id="fecha1" name="fecha1" required="" type="date" value="">
-             <label for="fecha2">Hasta</label>
-         <input class="form-control" id="fecha2" name="fecha2" required="" type="date" value="">
+      <div class="col-md-10" style="float:center; margin:row; color: aliceblue; text-align: center;color:black">
+        {{ mostrar_campo(filtro.titulo, class='form-control' )}}
+      </div>
+       <div class="col-md-10" style="float:center; margin:row; color: aliceblue; text-align: center;color:black">
+        {{ mostrar_campo(filtro.tipo , class='form-control') }}
+      </div>
+      <div class="col-md-10" style="float:center; margin:row; color: aliceblue; text-align: center;color:black">
+        {{ mostrar_campo(filtro.fecha, class='form-control' )}}
+      </div>
+      <div class="col-md-10" style="margin-top: 15px;margin:row; text-align: center; color:black">
+        {{ mostrar_campo_submit(filtro.filtro, class='btn btn-outline')}}
+      </div>
 
-
-    <p><h4>===>Categoria<===</h4></p>
-
-						<select name="desplegable" id="desplegable" class="form-control">
-						  <option value="">--Elegir una opción --</option>
-						  <option value="opcion1">Opción 1</option>
-						  <option value="opcion2">Opción 2</option>
-						  <option value="opcion3">Opción 3</option>
-						  <option value="opcion4">Opción 4</option>
-						</select>
-                        <label for="texto"><p><h4>===>Titulo<===</h4></p></label>
-						<input type="text" name="campotexto" id="texto" class="form-control"><br><br>
-                    <a input type="submit" class="btn btn-primary" style="color:white">buscar</a>
-                    </div>
                 </div>
             </div>
         </div>
+   </form>
+</div>
 {% endif %}
 <div class="row">
-<div class="col-lg-10" style="margin:auto;float:auto">
+<div class="col-lg-11" style="margin:auto;float:auto">
 
 <div class="row">
 
-{% for evento in listaeventos %}
+
+  {% for evento in listaeventos %}
+
+  {{mostrar_eventos (evento)}}
+
+  {% endfor %}
+
+</div>
 
 
-{{mostrar_eventos (evento)}}
-
-
-{% endfor %}
-</div></div></div>
+</div></div>
 
 
 {% endblock %}

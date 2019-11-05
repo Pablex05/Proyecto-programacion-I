@@ -2,12 +2,13 @@
 {% if evento.estado == 1 %}
 <div class="conteiner-fluid"><br><br><img src="{{url_for('static', filename='imagenes/relleno.png')}}" >
 <div class="card" style="width: 30rem;float:center;">
-<img class="card-img-top" src="/static/imagenes/imagen.jpg">
+<img class="card-img-top" style="height: 7%;" src="{{url_for('static', filename = 'imagenes/'+evento.imagen)}}" alt="Card image cap">
     <p><div class="card-body">
     <h3 class="card-title">{{evento["nombre"]}}</h3>
     <p><h5>Fecha:{{evento["fecha"]}}</h5></p>
     <p><h5>Hora:{{evento["hora"]}}</h5></p>
     <p><h5>Lugar:{{evento["lugar"]}}</h5></p>
+    <p><h5>tipo:{{evento["tipo"]}}</h5></p>
     <p><h5>Descripcion:{{evento["descripcion"]}}</h5></p>
 </p>
  <a href="{{url_for('evento',id=evento['eventoId'])}}" class="btn btn-primary">Ir a …</a>
@@ -21,21 +22,21 @@
 
 
 
-{% macro evento_comentarios (comentario) %}
-	<div class="col-md-2"></div>
-<div class="col-md-8">
+{% macro listar_comentarios (comentario) %}
+  <div class="panel-group">
+  <div class="panel panel-default">
 <div class="jumbotron" style=" margin:5px">
-  <img style="float:center; margin:row; width: 40px; height: 40px" src="/static/imagenes/usuario_logo.png"><h5>{{comentario["id"]}}</h5>
-	  <p><h5>{{comentario["texto"]}}</h5></p>
-</div>
-</div>
+      <img style="float:center; margin:row; width: 40px; height: 40px" src="/static/imagenes/usuario_logo.png"><h5>{{comentario["usuario"]}} {{comentario["fechaHora"]}}</h5>
+
+    <div class="panel-body">{{comentario["texto"]}}</div>
+  </div>
+  </div></div>
 	<div class="col-md-2"></div>
 {% endmacro %}
 
-
 {% macro panel_evento (evento) %}
 	<tr>
-        <td style="text-align:center">{{evento["eventoId"]}}</td>
+        <td style="text-align:center">{{evento["usuarioId"]}}</td>
         <td style="width:50%">{{evento["nombre"]}}</td>
         <td style="width:40%;text-align:center">{{evento["fecha"]}}</td>
 	<td style="width:40%;text-align:center">{{evento["hora"]}}</td>
@@ -50,12 +51,58 @@
         <td style="width:5%"><a href="{{url_for('evento',id=evento['eventoId'])}}" class="btn btn-primary">Ir a …</a></td>
         <td style="width:5%"><a href="{{url_for('modificar_evento',id=evento['eventoId'])}}" class="btn btn-secondary">Modificar</a></td>
         <td style="width:5%"><a href="{{url_for('eliminar_evento',id=evento['eventoId'])}}" class="btn btn-danger">Eliminar</a></td>
+    </tr>
+<tr>
+    <td colspan="6"><br></td>
+</tr>
+    {% endmacro %}
+
+{% macro panel_evento_admin (evento) %}
+	<tr>
+        <td style="text-align:center">{{evento["usuarioId"]}}</td>
+        <td style="width:50%">{{evento["nombre"]}}</td>
+        <td style="width:40%;text-align:center">{{evento["fecha"]}}</td>
+	<td style="width:40%;text-align:center">{{evento["hora"]}}</td>
+        {% if evento.estado == 1 %}
+            <td style="width:40%;text-align:center">APROBADO</td>
+	{% endif %}
+	{% if evento.estado == 0 %}
+            <td style="width:40%;text-align:center">DESAPROBADO</td>
+        {% endif %}
+
+	<td style="width:40%;text-align:center"></td>
+        <td style="width:5%"><a href="{{url_for('evento',id=evento['eventoId'])}}" class="btn btn-primary">Ir a …</a></td>
+        <td style="width:5%"><a href="{{url_for('modificar_evento',id=evento['eventoId'])}}" class="btn btn-secondary">Modificar</a></td>
+        <td style="width:5%"><a href="{{url_for('eliminar_evento',id=evento['eventoId'])}}" class="btn btn-danger">Eliminar</a></td>
         {% if evento.estado == 0 %}
             <td style="width:5%"><a href="{{url_for('aprobar_evento',id=evento['eventoId'],estado=1)}}" type="button" class="btn btn-success">Aprobar</a></td>
-	{% endif %}	
-	{% if evento.estado == 1 %}
+	    {% endif %}
+	    {% if evento.estado == 1 %}
             <td style="width:5%"><a href="{{url_for('aprobar_evento',id=evento['eventoId'],estado=0)}}" type="button" class="btn btn-danger">Desaprobar</a></td>
         {% endif %}
+    </tr>
+<tr>
+    <td colspan="6"><br></td>
+</tr>
+    {% endmacro %}
+
+{% macro panel_evento (evento) %}
+	<tr>
+        <td style="text-align:center">{{evento["usuarioId"]}}</td>
+        <td style="width:50%">{{evento["nombre"]}}</td>
+        <td style="width:40%;text-align:center">{{evento["fecha"]}}</td>
+	<td style="width:40%;text-align:center">{{evento["hora"]}}</td>
+        {% if evento.estado == 1 %}
+            <td style="width:40%;text-align:center">APROBADO</td>
+	{% endif %}
+	{% if evento.estado == 0 %}
+            <td style="width:40%;text-align:center">DESAPROBADO</td>
+        {% endif %}
+
+	<td style="width:40%;text-align:center"></td>
+        <td style="width:5%"><a href="{{url_for('evento',id=evento['eventoId'])}}" class="btn btn-primary">Ir a …</a></td>
+        <td style="width:5%"><a href="{{url_for('modificar_evento',id=evento['eventoId'])}}" class="btn btn-secondary">Modificar</a></td>
+        <td style="width:5%"><a href="{{url_for('eliminar_evento',id=evento['eventoId'])}}" class="btn btn-danger">Eliminar</a></td>
 
     </tr>
 <tr>
@@ -86,3 +133,13 @@
 	{{ campo(**kwargs)|safe }} <!-- Mostrar campo -->
 {% endmacro %}
 
+
+{% macro mostrar_campo_radio(campo) %}
+	{{ campo.label }} <!-- Mostrar etiqueta -->
+	<br/>
+	{% for subfield in campo %} <!--Recorrer cada una de las opciones -->
+			{{ subfield }}  <!-- Mostrar opción -->
+	  		{{ subfield.label }} <!-- Mostrar etiqueta -->
+	{% endfor %}
+	{{mostrar_error(campo)}} <!-- Llamar a macro que muestra el error -->
+{% endmacro %}

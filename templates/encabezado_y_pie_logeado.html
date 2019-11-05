@@ -30,8 +30,11 @@
 			    Menu</a>
 			    <div class="dropdown-menu" >
 			      <a class="dropdown-item" href="{{url_for('crear_evento')}}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Crear Evento </font></font></a>
-			      <a class="dropdown-item"  href="{{url_for('panel_eventos')}}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Panel de eventos</font></font></a>
-			      <div class="dropdown-divider"></div>
+			      <a class="dropdown-item"  href="{{url_for('panel_eventos')}}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Panel de mis Eventos</font></font></a>
+                    {% if current_user.is_admin() %}
+                    <a class="dropdown-item"  href="{{url_for('panel_eventos_admin')}}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Panel de Eventos Administrador</font></font></a>
+			        {% endif %}
+                    <div class="dropdown-divider"></div>
 			      <a class="dropdown-item" href="{{url_for('usuario_nuevo')}}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Registrar nuevo usuario</font></font></a>
 			    </div>
             </li>
@@ -46,7 +49,10 @@
         <li class="nav-item dropdown">
           <img src="{{url_for('static', filename='imagenes/usuario_logo.png')}}"style="width: 5rem; height: 5rem">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
-          Usuario
+
+          {{current_user}}     <!--- aca es donde nos dice el nombre del usuario -->
+
+
         </font></font></a>
 
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">

@@ -1,6 +1,6 @@
 
 {% extends "encabezado_y_pie_logeado.html" %}
-{% from "macros.html" import mostrar_campo, mostrar_campo_submit %}
+{% from "macros.html" import mostrar_campo, mostrar_campo_submit%}
 {%block contenido %}
 
 		<div class="container"><br><br>
@@ -8,12 +8,13 @@
 				<div class="col-md-12">
 					<div class="jumbotron">
 					{% if (destino=="creando_evento") %}
+						<form method="POST" action="{{url_for('crear_evento') }}" enctype="multipart/form-data" >
     					<h1>Crear Evento</h1>
 					{% endif %}
 					{% if (destino=="modificar_evento") %}
 						<h1>Modificar Evento</h1>
+						<form method="POST" action="{{url_for('modificar_evento', id=evento["eventoId"]) }}" enctype="multipart/form-data" >
 					{% endif %}
-			<form method="POST" action="{{ url_for("crear_evento") }}" enctype="multipart/form-data" >
 	      		<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 					 <div class="form-group">
 						 {{ mostrar_campo(formulario.titulo, class='form-control' )}}
@@ -27,6 +28,9 @@
 					<div class="form-group">
 						{{ mostrar_campo(formulario.lugar, class='form-control' )}}
 					 </div>
+					<div class="form-group col-md-12 center text-fontnorm">
+			            {{ mostrar_campo(formulario.tipo , class='form-control')}}
+          			</div>
 					 <div class="form-group">
 						{{ mostrar_campo(formulario.descripcion, class='form-control' )}}
 					 </div>

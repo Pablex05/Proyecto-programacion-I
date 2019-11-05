@@ -1,4 +1,0 @@
-Hola {{usuario.email}} !
-
-Para confirmar ingresa lo siguiente en tu navegador:
-{{ url_for('confirmar', token=token, _external=True) }}

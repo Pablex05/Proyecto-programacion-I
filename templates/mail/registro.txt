@@ -1,4 +1,3 @@
-Hola {{usuario.email}} !
+Hola !
 
-Tu registro ha sido exitoso, para confirmar ingresa lo siguiente en tu navegador:
-{{ url_for('confirmar', _external=True) }}
+Tu registro ha sido exitoso

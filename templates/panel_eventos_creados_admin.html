@@ -1,12 +1,12 @@
 {% extends "encabezado_y_pie_logeado.html" %}
 {%block contenido %}
-{% from 'macros.html' import panel_evento %}
+{% from 'macros.html' import panel_evento_admin%}
 
 		<div class="container"><br><br>
 			<div class="row">
 				<div class="col-md-14">
 					<div class="jumbotron" >
-					<h1>LISTA DE EVENTOS</h1>
+					<h1>LISTA DE EVENTOS ADMINISTRADOR</h1>
 			<form>
 <div class="jumbotron" style=" margin:auto">
 
@@ -27,14 +27,14 @@
 		</tr>
 
 {% for evento in listaeventos %}
-	{% if evento.usuarioId == current_user.usuarioId %}
-	{{panel_evento (evento)}}
-	{% endif %}
+
+	{{panel_evento_admin (evento)}}
+
 {% endfor %}
 
 {% for estado in evento %}
 
-	{{panel_evento (estado)}}
+	{{panel_evento_admin (estado)}}
 
 {% endfor %}
 

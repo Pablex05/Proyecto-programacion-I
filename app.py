@@ -28,5 +28,6 @@ app.secret_key = os.getenv('SECRET_KEY')
 
 if __name__ == '__main__':
     from rutas import *
+    from rutas_api import *
     app.run(port=8000, debug=True)
 

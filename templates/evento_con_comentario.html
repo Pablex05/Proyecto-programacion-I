@@ -1,50 +1,89 @@
 
 {% extends "encabezado_y_pie_logeado.html" %}
-{% from 'macros.html' import evento_comentarios %}
+{% from 'macros.html' import listar_comentarios, mostrar_campo, mostrar_campo_submit %}
 {%block contenido %}
 
 <div class="row">
 <div class="col-md-8"style="float:left; margin:auto;width: 20rem">
 <div class="jumbotron">
-        <div align="center" ><img  style="width:80% ; height: 80%" src="/static/imagenes/imagen.jpg" style="margin:auto"></div>
+        <div align="center" ><img  style="width:80% ; height: 80%" src="{{url_for('static', filename = 'imagenes/'+evento.imagen)}}" alt="Card image cap"></div>
 
 	<h1 align="center"><b><u>{{evento["nombre"]}}</u> </b></h1>
 	<h3><u>Nombre:</u> {{evento["nombre"]}}</h3>
 	<h3><u>Fecha:</u> {{evento["fecha"]}}</h3>
 	<h3><u>Horario:</u> {{evento["hora"]}}</h3>
 	<h3><u>Lugar:</u> {{evento["lugar"]}}</h3>
+	<h3><u>tipo:</u>{{evento["tipo"]}}</h3>
 	<h3><u>Descripcion:</u> {{evento["descripcion"]}}</h3>
 
 </div>
 </div>
 </div>
 <!----- esto es el conjunto de los comentarios ------->
+{% if current_user.is_authenticated %}
 <div class="row">
 	<div class="col-md-2"></div>
-<div class="col-md-8">
+<div class="col-md-10">
 					  <div class="form-group">
 						<label for="area" style="color:black">
 						 <div class="jumbotron">
-
-						  <img style="float:left; margin:row; width: 40px; height: 40px" src="/static/imagenes/usuario_logo.png"><h5>{{nombreusuario}}</h5>
-		</form>
-						  <textarea name="areadetexto" rows="1" cols="60"  class="form-control" id="area"></textarea>
-							  <input type="submit">
+						  <img style="float:left; margin:row; width: 40px; height: 40px" src="/static/imagenes/usuario_logo.png"><h5>{{ current_user }}</h5>
+						  <button type="button" class="btn btn-secondary btn-lg" data-toggle="modal"data-target="#modal_comment" style=" color: white;">Comentar</button>
 					  </div>
 					  </div></div></div>
-</div><div class="col-md-2"></div></div>
+{% endif %}
+
 <div class="row">
+<div class="col-md-4" style="float:left; margin:auto">
 
-
-
-{% for comentario in listacomentarios %}
-
-
-{{evento_comentarios (comentario)}}
-
-
+{% for comentario in comentarios %}
+	{{listar_comentarios (comentario)}}
+	{% if current_user.is_authenticated %}
+		{% if current_user.is_admin() or current_user.is_owner(comentario) %}
+			<a href="{{url_for('eliminarComentario', id = comentario["comentarioId"])}}">
+			<button type="button" class="btn btn-outline-danger">Eliminar</button></a>
+		{% endif %}
+	{% endif %}
 {% endfor %}
+
+{% if current_user.is_authenticated %}
+    <div class="col-md-1" style="text-align: center; margin: 20px;">
+
+    </div>
+{% endif %}
+
 <!----------------------------------------------------->
+        <div class="modal fade" id="modal_comment" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modalcoment1" role="document">
+
+                <form method="POST" action="{{ url_for('evento', id=evento.eventoId) }}"  enctype="multipart/form-data" >
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+            <div class="modal-content modalcoment2">
+            <div class="modal-header">
+                <h3 class="modal-title modaltitulo" id="exampleModalCenterTitle" style="text-align: center;">Comentar</h3>
+                <button type="button" class="closebtn" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" class="ekis">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                {{ mostrar_campo(formulario_com.comentario, class='form-control', style="width: 490px; height: 170px" )}}
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                {{ mostrar_campo_submit(formulario_com.submitComentario , class='btn btn-info')}}
+            </div>
+            </div>
+
+                </form>
+            </div>
+        </div>
+
+
+    </div>
 </div>
 
 {%endblock%}
