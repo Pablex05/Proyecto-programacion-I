@@ -15,7 +15,7 @@
 						<h1>Modificar Evento</h1>
 						<form method="POST" action="{{url_for('modificar_evento', id=evento["eventoId"]) }}" enctype="multipart/form-data" >
 					{% endif %}
-	      		<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+	      		<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>	<!--- esto es para poder introducir la informacion del formulario -->
 					 <div class="form-group">
 						 {{ mostrar_campo(formulario.titulo, class='form-control' )}}
 					 </div>
@@ -38,7 +38,7 @@
 						 {{ mostrar_campo(formulario.imagen, class='form-control-file' )}}
 					 </div>
 				     <li class="form-group">
-						 <br>{{ mostrar_campo_submit(formulario.aceptar_evento , class='btn btn-info')}}
+						 <br>{{ mostrar_campo_submit(formulario.aceptar_evento , class='btn btn-info')}}	<!--- con el campo submit es para enviar la informacion del formulario -->
                 		 <a href="{{url_for('index')}}" type="button" class="btn btn-danger">Cancelar</a>
 					 </li>
 				</form>

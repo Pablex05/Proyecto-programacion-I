@@ -1,5 +1,6 @@
 {% macro mostrar_eventos (evento) %}
 {% if evento.estado == 1 %}
+<!-- esto es para listar cada evento que tenemos guardado en la BD -->
 <div class="conteiner-fluid"><br><br><img src="{{url_for('static', filename='imagenes/relleno.png')}}" >
 <div class="card" style="width: 30rem;float:center;">
 <img class="card-img-top" style="height: 7%;" src="{{url_for('static', filename = 'imagenes/'+evento.imagen)}}" alt="Card image cap">
@@ -23,6 +24,7 @@
 
 
 {% macro listar_comentarios (comentario) %}
+<!-- esto es para listar cada comentario que tenemos en la BD --> 
   <div class="panel-group">
   <div class="panel panel-default">
 <div class="jumbotron" style=" margin:5px">
@@ -35,6 +37,7 @@
 {% endmacro %}
 
 {% macro panel_evento (evento) %}
+<!-- esto es para listar cada evento en el panel del usuario, con sus funcion de ir,modificar,eliminar -->
 	<tr>
         <td style="text-align:center">{{evento["usuarioId"]}}</td>
         <td style="width:50%">{{evento["nombre"]}}</td>
@@ -58,6 +61,7 @@
     {% endmacro %}
 
 {% macro panel_evento_admin (evento) %}
+<!-- esto es para listar cada evento en el panel del usuario, con sus funciones ir, modificar, eliminar, APROBAR/DESAPROBAR-->
 	<tr>
         <td style="text-align:center">{{evento["usuarioId"]}}</td>
         <td style="width:50%">{{evento["nombre"]}}</td>
@@ -86,32 +90,8 @@
 </tr>
     {% endmacro %}
 
-{% macro panel_evento (evento) %}
-	<tr>
-        <td style="text-align:center">{{evento["usuarioId"]}}</td>
-        <td style="width:50%">{{evento["nombre"]}}</td>
-        <td style="width:40%;text-align:center">{{evento["fecha"]}}</td>
-	<td style="width:40%;text-align:center">{{evento["hora"]}}</td>
-        {% if evento.estado == 1 %}
-            <td style="width:40%;text-align:center">APROBADO</td>
-	{% endif %}
-	{% if evento.estado == 0 %}
-            <td style="width:40%;text-align:center">DESAPROBADO</td>
-        {% endif %}
 
-	<td style="width:40%;text-align:center"></td>
-        <td style="width:5%"><a href="{{url_for('evento',id=evento['eventoId'])}}" class="btn btn-primary">Ir a …</a></td>
-        <td style="width:5%"><a href="{{url_for('modificar_evento',id=evento['eventoId'])}}" class="btn btn-secondary">Modificar</a></td>
-        <td style="width:5%"><a href="{{url_for('eliminar_evento',id=evento['eventoId'])}}" class="btn btn-danger">Eliminar</a></td>
-
-    </tr>
-<tr>
-    <td colspan="6"><br></td>
-</tr>
-    {% endmacro %}
-
-
-{% macro mostrar_error(campo) %}
+{% macro mostrar_error(campo) %}    <!-- macro que se emplea para validar-->
     {% if campo.errrors %}
     <div class="alert alert-danger" role="alert">
         {%for error in campo.errors %}
@@ -122,10 +102,10 @@
 {% endmacro %}
 
 
-{% macro mostrar_campo(campo) %}
-	{{ campo.label }}
-	{{ campo(**kwargs)|safe }}
-	{{mostrar_error(campo)}}
+{% macro mostrar_campo(campo) %} <!--aca es donde se utiliza en los formularios (aca indica a html que valor toma de tal funcion,como formulario.nombre-->
+	{{ campo.label }} #<!--label muestra la etiqueta-->
+	{{ campo(**kwargs)|safe }} <!--muestra el campo-->
+	{{mostrar_error(campo)}} <!--muestra el error de validacion-->
 {% endmacro %}
 
 
@@ -134,12 +114,3 @@
 {% endmacro %}
 
 
-{% macro mostrar_campo_radio(campo) %}
-	{{ campo.label }} <!-- Mostrar etiqueta -->
-	<br/>
-	{% for subfield in campo %} <!--Recorrer cada una de las opciones -->
-			{{ subfield }}  <!-- Mostrar opción -->
-	  		{{ subfield.label }} <!-- Mostrar etiqueta -->
-	{% endfor %}
-	{{mostrar_error(campo)}} <!-- Llamar a macro que muestra el error -->
-{% endmacro %}

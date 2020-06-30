@@ -1,8 +1,9 @@
-from flask import render_template, request, jsonify
+from flask import render_template, request, jsonify	#importamos flask
 from app import app
-# Manejar error de página no encontrada
-@app.errorhandler(404)
+from formulario_login import *
+@app.errorhandler(404) # Manejar error de página no encontrada
 def page_not_found(e):
+    formularioLogin = Login()
     print(e)
     # Si la solicitud acepta json y no HTML
     if request.accept_mimetypes.accept_json and not request.accept_mimetypes.accept_html:
@@ -11,10 +12,11 @@ def page_not_found(e):
         response.status_code = 404
         return response
     # Sino responder con template HTML
-    return render_template('errores/404.html'), 404
-# Manejar error de error interno
-@app.errorhandler(500)
+    return render_template('errores/404.html', formularioLogin = formularioLogin), 404
+
+@app.errorhandler(500) # Manejar error de error interno
 def internal_server_error(e):
+    formularioLogin = Login()
     print(e)
     # Si la solicitud acepta json y no HTML
     if request.accept_mimetypes.accept_json and not request.accept_mimetypes.accept_html:
@@ -23,4 +25,4 @@ def internal_server_error(e):
         response.status_code = 500
         return response
     # Sino responder con template HTML
-    return render_template('errores/500.html'), 500
+    return render_template('errores/500.html', formularioLogin = formularioLogin), 500

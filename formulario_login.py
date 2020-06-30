@@ -3,7 +3,7 @@ from flask_wtf import FlaskForm #Importa funciones de formulario
 from wtforms import PasswordField, BooleanField,SubmitField  # Importa campos
 from wtforms.fields.html5 import EmailField #Importa campos HTML
 from wtforms import validators #Importa validaciones
-from app import db
+from app import db #estamos pasando la inicializacion de SQLAlchemy
 from modelos import *
 
 #Clase de Login

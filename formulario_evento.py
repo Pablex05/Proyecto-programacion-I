@@ -5,17 +5,8 @@ from flask_wtf.file import FileField, FileRequired, FileAllowed
 from wtforms_components import TimeField
 
 class Evento_form(Form):
-    #Función para hacer campo opcional
-    def opcional(field):
-        field.validators.insert(0, validators.Optional())
-    def nombre_usuario(form,field):
-        if (field.data.find("_")!= -1) or (field.data.find("#")!= -1) :
-             raise validators.ValidationError("El nombre de usuario solo puede contener letras, números y .")
-    def apellido_usuario(form,field):
-        if (field.data.find("_")!= -1) or (field.data.find("#")!= -1) :
-             raise validators.ValidationError("El nombre de usuario solo puede contener letras, números y .")
-    lista_opciones = [
-        ('Fiesta Privada', 'Fiesta Privada'),
+    lista_opciones = [			
+        ('Fiesta Privada', 'Fiesta Privada'),		#esto son los distintos tipos de eventos del menu de opciones
         ('Fiesta pública', 'Fiesta pública'),
         ('Recital', 'Recital'),
         ('Deporte', 'Deporte'),
@@ -26,21 +17,21 @@ class Evento_form(Form):
         ('Fastival', 'Fastival'),
         ('Otro', 'Otro'),
     ]
-    titulo = StringField('Título Evento',[validators.DataRequired()])
+    titulo = StringField('Título Evento',[validators.DataRequired()])					#aca estamos validando cada campo del evento
     fecha = DateField('Fecha Evento',[validators.DataRequired(message="Ingrese una fecha válida")])
     hora = TimeField('Hora Evento',[validators.DataRequired(message="Ingrese una hora válida")])
     lugar = StringField('Lugar Evento',[validators.DataRequired(message='Ingrese un Lugar de Evento')])
     tipo = SelectField('Tipo', choices=lista_opciones)
     descripcion = StringField('Descripcion Evento', [validators.DataRequired(message='Ingrese una Descripcion del Evento')])
     imagen = FileField('Imagen Evento',validators=[ validators.DataRequired(), FileAllowed(['jpg', 'png'], 'El archivo debe ser una imagen jpg o png')])
-    aceptar_evento = SubmitField('Enviar Evento')
+    aceptar_evento = SubmitField('Enviar Evento')	#aca tenemos el submit del boton para crear el evento
 
 class Comentario_form(Form):
-    comentario = TextAreaField('Comentario', [validators.Required(message="Ingrese un comentario"),validators.Length(min=5)])
+    comentario = TextAreaField('Comentario', [validators.Required(message="Ingrese un comentario"),validators.Length(min=5)])	#aca estamos validando si el campo tiene o no un comentario
     submitComentario = SubmitField("Enviar")
 
 class Filtro_form(Form):
-    tipo = [
+    tipo = [					#aca tenemos el listado de cada tipo de evento que usaremos para el filtro
         ('empty', 'Todas'),
         ('Fiesta Privada','Fiesta Privada'),
         ('Fiesta pública','Fiesta pública'),
@@ -53,9 +44,9 @@ class Filtro_form(Form):
         ('Fastival','Fastival'),
         ('Otro','Otro'),
     ]
-    titulo = StringField('Titulo', render_kw={"placeholder": "Titulo completo"})
+    titulo = StringField('Titulo', render_kw={"placeholder": "Titulo completo"}) # render_kw provee de un diccionario
     fecha = DateField('Fecha')
-    tipo = SelectField('Tipo', [], choices=tipo)
+    tipo = SelectField('Tipo', [], choices=tipo) #(nombre, argumentos, tipo de funcion)
     filtro = SubmitField("Buscar")
 
 

@@ -1,17 +1,17 @@
 from flask import Flask
-from flask_wtf import CSRFProtect
-from flask_sqlalchemy import SQLAlchemy
+from flask_wtf import CSRFProtect	#es de la clave secreta
+from flask_sqlalchemy import SQLAlchemy  #importar para base de datos
 import os
-from dotenv import load_dotenv
+from dotenv import load_dotenv #importa el archivo .env que contiene claves y configuraciones que otros no deberian tener acceso, pero si es vital para el sistema(entonces se lo coloca externamente)
 from flask_mail import Mail, Message  # Importar para enviar Mail
-from flask_login import LoginManager, current_user
+from flask_login import LoginManager, current_user #importar para login
 
 app = Flask(__name__)
 
 load_dotenv(override=True)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://' + os.getenv('DB_USERNAME') + ':' + os.getenv('DB_PASS') + '@localhost/proyectoPaginaWeb'
-db = SQLAlchemy(app)
+db = SQLAlchemy(app)	#app = Flask(__name__)
 app.config['MAIL_HOSTNAME'] = 'localhost'
 app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
 app.config['MAIL_PORT'] = 587
@@ -26,9 +26,9 @@ login_manager = LoginManager(app)
 csrf = CSRFProtect(app)
 app.secret_key = os.getenv('SECRET_KEY')
 
-if __name__ == '__main__':
-    from rutas import *
+if __name__ == '__main__': # esto es para que inicie
+    from rutas import *		#importamos las librerias que tienen los archivos rutas, api y errores
     from rutas_api import *
     from errores import *
-    app.run(port=8000, debug=True)
+    app.run(port=8000, debug=False)
 

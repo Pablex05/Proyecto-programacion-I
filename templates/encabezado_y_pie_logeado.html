@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Eventin.com</title>
 		<script src="bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
 		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -23,7 +23,7 @@
 		  </li>
       </ul>
 
-        {% if current_user.is_authenticated %}
+        {% if current_user.is_authenticated %} <!-- si el usuario esta logeado va a mostrar el menu -->
          <ul class="navbar-nav mr-auto">
 		    <li class="nav-item dropdown">
 			    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -31,7 +31,7 @@
 			    <div class="dropdown-menu" >
 			      <a class="dropdown-item" href="{{url_for('crear_evento')}}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Crear Evento </font></font></a>
 			      <a class="dropdown-item"  href="{{url_for('panel_eventos')}}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Panel de mis Eventos</font></font></a>
-                    {% if current_user.is_admin() %}
+                    {% if current_user.is_admin() %} <!-- si ademas es administrador va a mostrar estas funciones-->
                     <a class="dropdown-item"  href="{{url_for('panel_eventos_admin')}}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Panel de Eventos Administrador</font></font></a>
 			        {% endif %}
                     <div class="dropdown-divider"></div>
@@ -64,8 +64,8 @@
         {% endif%}
 
         {% from "macros.html" import mostrar_campo, mostrar_campo_submit %}
-        {% if not current_user.is_authenticated %}
-        <!--<div class="navbar-collapse collapse w-100 order-1 dual-collapse2">-->
+        {% if not current_user.is_authenticated %} <!--- aca mostraria esto cuando el usuario no este logeado-->
+        
             <ul class="navbar-nav ml-auto">
                 <form class="form-line my-10 my-lg-1">
                     <a class="nav-link" href="{{url_for('index')}}" ><img src="{{url_for('static', filename='imagenes/logotipo.png')}}"style="left: 47%; top: 15%; position: absolute;width: 11rem; height: 11rem"> <span class="sr-only">(current)</span></a>

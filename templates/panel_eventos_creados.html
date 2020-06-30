@@ -25,8 +25,8 @@
         	<td style="width:5%"></td>
 
 		</tr>
-
-{% for evento in listaeventos %}
+<!--- esto trae todos los eventos de la BD llamando al macro -->
+{% for evento in listaeventos %}	
 	{% if evento.usuarioId == current_user.usuarioId %}
 	{{panel_evento (evento)}}
 	{% endif %}
